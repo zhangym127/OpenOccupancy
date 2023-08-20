@@ -93,7 +93,8 @@ class ViewTransformerLiftSplatShootVoxel(ViewTransformerLSSBEVDepth):
             pdb.set_trace()
         
         return self.loss_depth_weight * depth_loss
-        
+
+    # @info 重载了父类的voxel_pooling函数，取消了父函数中的拍扁操作，保留了高度信息
     def voxel_pooling(self, geom_feats, x):
         B, N, D, H, W, C = x.shape
         Nprime = B * N * D * H * W

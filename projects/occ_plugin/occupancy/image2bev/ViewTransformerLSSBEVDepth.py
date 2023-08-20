@@ -182,6 +182,8 @@ class ViewTransformerLiftSplatShoot(BaseModule):
             # griddify (B x C x Z x X x Y)
             final = torch.zeros((B, C, nx[2], nx[1], nx[0]), device=x.device)
             final[geom_feats[:, 3], :, geom_feats[:, 2], geom_feats[:, 1], geom_feats[:, 0]] = x
+
+        # 把3D体素特征拍扁成2D的BEV特征，把Z轴和通道C合并，这是典型的BEV操作
         # collapse Z
         final = torch.cat(final.unbind(dim=2), 1)
 
